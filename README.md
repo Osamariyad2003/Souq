@@ -8,17 +8,39 @@ cash flow a first-class accounting fact: every state transition that
 moves (or fails to move) money produces a **balanced double-entry
 journal entry** — never a cosmetic status flag with no ledger effect.
 
-This is a single Odoo 18 addon, **`souq`** (this directory), covering:
+A single Odoo 18 addon, **`souq`** (this directory), built from a
+5-module SRS down to one cohesive install, covering:
 
-- Branch-scoped COD accounting (`sale.order`, `account.move`).
+- Branch-scoped COD accounting (`sale.order`, `account.move`)
 - Driver cash custody and settlement (`souq.cod.collection`,
-  `souq.driver.settlement`, `souq.driver.float`).
+  `souq.driver.settlement`, `souq.driver.float`)
 - Delivery/driver assignment and a return-on-delivery flow
-  (`stock.picking` + the Refuse Delivery wizard).
-- A configurable COD surcharge, applied/removed as an order line.
+- A configurable COD surcharge, applied/removed as an order line
 - Multi-branch stock visibility and inter-branch transfers with a
-  visible in-transit state.
-- ZATCA-style QR e-invoicing with a bilingual (AR/EN) RTL report.
+  visible in-transit state
+- ZATCA-style QR e-invoicing with a bilingual (AR/EN) RTL report
+
+**What it demonstrates:** real double-entry accounting logic on top of
+Odoo's ORM (not cosmetic fields), an enforced state machine with
+illegal-transition guards, role-based access control with per-driver
+record rules, ZATCA-style TLV/QR e-invoicing, Arabic/RTL localization,
+a Docker-packaged deployment, a `TransactionCase` test suite covering
+every acceptance scenario, and a Playwright script that walks and
+screenshots the live app end to end.
+
+## See it running
+
+| | |
+|---|---|
+| ![Branch configuration](screenshots/01_branch_config.png) **Branch configuration** — warehouse, cash/clearing/cash-diff accounts, settlement journal. | ![Souq Connect settings](screenshots/02_settings_surcharge.png) **Settings** — the optional COD surcharge, fixed or percentage. |
+| ![Quotations list](screenshots/03_quotations_list.png) **Quotations** — COD orders alongside standard ones. | ![Sale order detail](screenshots/04_order_detail.png) **COD sale order** — Payment Mode, Branch, and the Pending → Collected → Settled statusbar. |
+| ![Delivery](screenshots/05_delivery.png) **Delivery** — Branch/Driver fields and the Refuse Delivery / Return button. | ![Invoice](screenshots/06_invoice.png) **Invoice** — the Souq COD branch group above the invoice lines. |
+| ![E-invoice QR](screenshots/07_einvoice_qr.png) **E-Invoice (ZATCA QR)** — TLV payload rendered to a QR code on posting. | ![COD collections list](screenshots/08_cod_collections_list.png) **COD collections** — expected vs. collected, settled state. |
+| ![Collection detail](screenshots/09_collection_detail.png) **Collection detail** — Pending → Collected → Settled, variance. | ![Driver settlements list](screenshots/10_settlements_list.png) **Driver settlements** — total expected, handed in, variance. |
+| ![Settlement detail](screenshots/11_settlement_detail.png) **Settlement detail** — confirmed, linked to its posted journal entry. | ![User access rights](screenshots/12_user_access_rights.png) **User access rights** — the Souq Connect groups on the standard user form. |
+
+These are regenerated with one command against any running instance —
+see [Screenshots](#screenshots) below.
 
 ## Install
 
@@ -108,7 +130,8 @@ both, plus `einvoice_reference` (from a dedicated shared sequence). The
 bundled bilingual (Arabic/English), RTL QWeb report
 (`souq_einvoice_document`) prints the QR alongside the invoice lines.
 
-## SRS coverage (`Souq_Connect_SRS.docx`)
+<details>
+<summary><strong>SRS coverage</strong> (<code>Souq_Connect_SRS.docx</code>) and core methods overridden</summary>
 
 All functional requirements from the SRS are implemented in this one
 module (the SRS's 5-module architecture — souq_base / souq_cod /
@@ -129,7 +152,7 @@ single addon per the build decision made mid-project):
 | FR-STK-4 | `souq.branch.action_view_branch_stock()` / Stock by Branch report |
 | FR-INV-1..4 | `models/souq_einvoice.py`: tax IDs, tax breakdown, TLV/QR, tax-reconciliation guard on post |
 
-### Odoo core methods overridden
+**Odoo core methods overridden:**
 
 - `sale.order.create()` / `write()` — auto-fill `warehouse_id` from
   `branch_id` (FR-STK-1) and sync the COD surcharge line (FR-COD-6).
@@ -140,6 +163,8 @@ single addon per the build decision made mid-project):
   generation), chained via `super()`.
 - `stock.picking.button_validate()` — propagate the assigned driver onto
   any matching COD collection.
+
+</details>
 
 ## Tests
 
@@ -168,21 +193,8 @@ odoo-bin -d <db> --test-enable --stop-after-init -i souq
 
 ## Screenshots
 
-`screenshots/` holds a captured walkthrough of a live instance — branch
-config, a COD sale order, its delivery, the invoice (clearing-account
-posting + ZATCA QR), the driver's collection, and the settlement that
-posts the balanced journal entry.
-
-| | |
-|---|---|
-| ![Branch configuration](screenshots/01_branch_config.png) **Branch configuration** — warehouse, cash/clearing/cash-diff accounts, settlement journal. | ![Souq Connect settings](screenshots/02_settings_surcharge.png) **Settings** — the optional COD surcharge, fixed or percentage. |
-| ![Quotations list](screenshots/03_quotations_list.png) **Quotations** — COD orders alongside standard ones. | ![Sale order detail](screenshots/04_order_detail.png) **COD sale order** — Payment Mode, Branch, and the Pending → Collected → Settled statusbar. |
-| ![Delivery](screenshots/05_delivery.png) **Delivery** — Branch/Driver fields and the Refuse Delivery / Return button. | ![Invoice](screenshots/06_invoice.png) **Invoice** — the Souq COD branch group above the invoice lines. |
-| ![E-invoice QR](screenshots/07_einvoice_qr.png) **E-Invoice (ZATCA QR)** — TLV payload rendered to a QR code on posting. | ![COD collections list](screenshots/08_cod_collections_list.png) **COD collections** — expected vs. collected, settled state. |
-| ![Collection detail](screenshots/09_collection_detail.png) **Collection detail** — Pending → Collected → Settled, variance. | ![Driver settlements list](screenshots/10_settlements_list.png) **Driver settlements** — total expected, handed in, variance. |
-| ![Settlement detail](screenshots/11_settlement_detail.png) **Settlement detail** — confirmed, linked to its posted journal entry. | ![User access rights](screenshots/12_user_access_rights.png) **User access rights** — the Souq Connect groups on the standard user form. |
-
-To regenerate them against your own running instance:
+`screenshots/` holds the captured walkthrough shown at the top of this
+README. To regenerate it against your own running instance:
 ```bash
 pip install playwright
 playwright install chromium
