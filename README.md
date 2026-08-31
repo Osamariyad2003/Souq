@@ -30,14 +30,41 @@ screenshots the live app end to end.
 
 ## See it running
 
-| | |
-|---|---|
-| ![Branch configuration](screenshots/01_branch_config.png) **Branch configuration** — warehouse, cash/clearing/cash-diff accounts, settlement journal. | ![Souq Connect settings](screenshots/02_settings_surcharge.png) **Settings** — the optional COD surcharge, fixed or percentage. |
-| ![Quotations list](screenshots/03_quotations_list.png) **Quotations** — COD orders alongside standard ones. | ![Sale order detail](screenshots/04_order_detail.png) **COD sale order** — Payment Mode, Branch, and the Pending → Collected → Settled statusbar. |
-| ![Delivery](screenshots/05_delivery.png) **Delivery** — Branch/Driver fields and the Refuse Delivery / Return button. | ![Invoice](screenshots/06_invoice.png) **Invoice** — the Souq COD branch group above the invoice lines. |
-| ![E-invoice QR](screenshots/07_einvoice_qr.png) **E-Invoice (ZATCA QR)** — TLV payload rendered to a QR code on posting. | ![COD collections list](screenshots/08_cod_collections_list.png) **COD collections** — expected vs. collected, settled state. |
-| ![Collection detail](screenshots/09_collection_detail.png) **Collection detail** — Pending → Collected → Settled, variance. | ![Driver settlements list](screenshots/10_settlements_list.png) **Driver settlements** — total expected, handed in, variance. |
-| ![Settlement detail](screenshots/11_settlement_detail.png) **Settlement detail** — confirmed, linked to its posted journal entry. | ![User access rights](screenshots/12_user_access_rights.png) **User access rights** — the Souq Connect groups on the standard user form. |
+**Branch configuration** — warehouse, cash/clearing/cash-diff accounts, settlement journal.
+![Branch configuration](screenshots/01_branch_config.png)
+
+**Settings** — the optional COD surcharge, fixed or percentage.
+![Souq Connect settings](screenshots/02_settings_surcharge.png)
+
+**Quotations** — COD orders alongside standard ones.
+![Quotations list](screenshots/03_quotations_list.png)
+
+**COD sale order** — Payment Mode, Branch, and the Pending → Collected → Settled statusbar.
+![Sale order detail](screenshots/04_order_detail.png)
+
+**Delivery** — Branch/Driver fields and the Refuse Delivery / Return button.
+![Delivery](screenshots/05_delivery.png)
+
+**Invoice** — the Souq COD branch group above the invoice lines.
+![Invoice](screenshots/06_invoice.png)
+
+**E-Invoice (ZATCA QR)** — TLV payload rendered to a QR code on posting.
+![E-invoice QR](screenshots/07_einvoice_qr.png)
+
+**COD collections** — expected vs. collected, settled state.
+![COD collections list](screenshots/08_cod_collections_list.png)
+
+**Collection detail** — Pending → Collected → Settled, variance.
+![Collection detail](screenshots/09_collection_detail.png)
+
+**Driver settlements** — total expected, handed in, variance.
+![Driver settlements list](screenshots/10_settlements_list.png)
+
+**Settlement detail** — confirmed, linked to its posted journal entry.
+![Settlement detail](screenshots/11_settlement_detail.png)
+
+**User access rights** — the Souq Connect groups on the standard user form.
+![User access rights](screenshots/12_user_access_rights.png)
 
 These are regenerated with one command against any running instance —
 see [Screenshots](#screenshots) below.
