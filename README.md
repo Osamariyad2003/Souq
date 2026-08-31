@@ -225,20 +225,8 @@ Run with:
 odoo-bin -d <db> --test-enable --stop-after-init -i souq
 ```
 
-## Screenshots
 
-`screenshots/` holds the captured walkthrough shown at the top of this
-README. To regenerate it against your own running instance:
-```bash
-pip install playwright
-playwright install chromium
-python scripts/take_screenshots.py \
-    --url http://localhost:8069 \
-    --db <your-database> \
-    --login admin \
-    --password admin \
-    --out screenshots
-```
+
 Each step is best-effort — a step that needs a record which doesn't
 exist yet (e.g. no COD order has been invoiced) is skipped with a
 message instead of failing the whole run, so walk through the module
