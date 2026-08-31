@@ -28,6 +28,12 @@ a Docker-packaged deployment, a `TransactionCase` test suite covering
 every acceptance scenario, and a Playwright script that walks and
 screenshots the live app end to end.
 
+**Contents:** [See it running](#see-it-running) ·
+[Install](#install) · [Order-to-ledger flow](#the-order-to-ledger-flow) ·
+[COD state machine](#cod-state-machine) · [Security](#security) ·
+[E-invoicing](#e-invoicing-zatca-style-qr) · [Tests](#tests) ·
+[Screenshots](#screenshots)
+
 ## See it running
 
 **Branch configuration** — warehouse, cash/clearing/cash-diff accounts, settlement journal.
@@ -126,8 +132,9 @@ COD invoice (`button_cancel` — a cancelled move posts nothing, so there
 is no residual clearing-account balance), and moves the collection/order
 to `failed`.
 
-## COD state machine (`sale.order.cod_state`)
+## COD state machine
 
+The lifecycle lives on `sale.order.cod_state`:
 ```
 pending -> collected | failed
 collected -> settled | failed
@@ -220,4 +227,20 @@ odoo-bin -d <db> --test-enable --stop-after-init -i souq
 
 ## Screenshots
 
-
+`screenshots/` holds the captured walkthrough shown at the top of this
+README. To regenerate it against your own running instance:
+```bash
+pip install playwright
+playwright install chromium
+python scripts/take_screenshots.py \
+    --url http://localhost:8069 \
+    --db <your-database> \
+    --login admin \
+    --password admin \
+    --out screenshots
+```
+Each step is best-effort — a step that needs a record which doesn't
+exist yet (e.g. no COD order has been invoiced) is skipped with a
+message instead of failing the whole run, so walk through the module
+once by hand (or via a test) before running this if you want the full
+set of 12 screenshots.
