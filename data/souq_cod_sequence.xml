@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_souq_cod_collection" model="ir.sequence">
+        <field name="name">Souq COD Collection</field>
+        <field name="code">souq.cod.collection</field>
+        <field name="prefix">COD/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_souq_driver_settlement" model="ir.sequence">
+        <field name="name">Souq Driver Settlement</field>
+        <field name="code">souq.driver.settlement</field>
+        <field name="prefix">SET/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- FR-BASE-4: shared sequence for e-invoice references. -->
+    <record id="seq_souq_einvoice" model="ir.sequence">
+        <field name="name">Souq E-Invoice Reference</field>
+        <field name="code">souq.einvoice</field>
+        <field name="prefix">EINV/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_souq_branch_transfer" model="ir.sequence">
+        <field name="name">Souq Inter-Branch Transfer</field>
+        <field name="code">souq.branch.transfer</field>
+        <field name="prefix">XFER/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

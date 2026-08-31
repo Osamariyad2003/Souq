@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_souq_cod" model="ir.ui.view">
+        <field name="name">sale.order.form.souq.cod</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="payment_mode"/>
+                <field name="branch_id" invisible="payment_mode != 'cod'"
+                       required="payment_mode == 'cod'"/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_button_box')]" position="before">
+                <field name="cod_state" invisible="payment_mode != 'cod'"
+                       widget="statusbar" statusbar_visible="pending,collected,settled"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_list_souq_cod" model="ir.ui.view">
+        <field name="name">sale.order.list.souq.cod</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="payment_mode" optional="show"/>
+                <field name="branch_id" optional="show"/>
+                <field name="cod_state" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter_souq_cod" model="ir.ui.view">
+        <field name="name">sale.order.search.souq.cod</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="branch_id"/>
+            </field>
+            <filter name="my_sale_orders_filter" position="after">
+                <filter name="souq_cod_only" string="Cash on Delivery"
+                        domain="[('payment_mode', '=', 'cod')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="souq_group_branch" string="Branch" context="{'group_by': 'branch_id'}"/>
+                    <filter name="souq_group_cod_state" string="COD Status" context="{'group_by': 'cod_state'}"/>
+                </group>
+            </filter>
+        </field>
+    </record>
+</odoo>

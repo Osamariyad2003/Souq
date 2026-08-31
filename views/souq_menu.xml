@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_souq_root" name="Souq Connect" sequence="45"/>
+
+    <menuitem id="menu_souq_operations" name="Operations" parent="menu_souq_root" sequence="10"/>
+    <menuitem id="menu_souq_settlement" name="Cash &amp; Settlement" parent="menu_souq_root" sequence="20"/>
+    <menuitem id="menu_souq_reporting" name="Reporting" parent="menu_souq_root" sequence="30"/>
+
+    <menuitem id="menu_souq_configuration" name="Configuration" parent="menu_souq_root" sequence="90"
+              groups="souq.group_souq_manager"/>
+    <menuitem id="menu_souq_branch" name="Branches" parent="menu_souq_configuration"
+              action="action_souq_branch" sequence="10"/>
+    <menuitem id="menu_souq_config_settings" name="Settings" parent="menu_souq_configuration"
+              action="action_souq_config_settings" sequence="20"/>
+
+    <menuitem id="menu_souq_my_deliveries" name="My Deliveries"
+              parent="menu_souq_operations"
+              action="action_souq_my_deliveries" sequence="5"
+              groups="souq.group_souq_driver"/>
+    <menuitem id="menu_souq_my_collections" name="My Deliveries &amp; Collections"
+              parent="menu_souq_operations"
+              action="action_souq_cod_collection_my" sequence="10"
+              groups="souq.group_souq_driver"/>
+
+    <menuitem id="menu_souq_cod_collections" name="COD Collections"
+              parent="menu_souq_settlement"
+              action="action_souq_cod_collection" sequence="10"/>
+    <menuitem id="menu_souq_driver_settlement" name="Driver Settlements"
+              parent="menu_souq_settlement"
+              action="action_souq_driver_settlement" sequence="20"/>
+    <menuitem id="menu_souq_driver_float" name="Driver Cash Floats"
+              parent="menu_souq_settlement"
+              action="action_souq_driver_float" sequence="30"/>
+
+    <menuitem id="menu_souq_branch_stock" name="Stock by Branch"
+              parent="menu_souq_reporting"
+              action="action_souq_branch_stock" sequence="10"/>
+
+    <menuitem id="menu_souq_branch_transfer" name="Inter-Branch Transfers"
+              parent="menu_souq_operations"
+              action="action_souq_branch_transfer" sequence="20"/>
+</odoo>

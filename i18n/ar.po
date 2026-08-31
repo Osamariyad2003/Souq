@@ -1,0 +1,231 @@
+# Translation of Souq Connect into Arabic.
+msgid ""
+msgstr ""
+"Project-Id-Version: souq\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Souq Connect"
+msgstr "سوق كونكت"
+
+msgid "Branches"
+msgstr "الفروع"
+
+msgid "Branch"
+msgstr "الفرع"
+
+msgid "Warehouse"
+msgstr "المستودع"
+
+msgid "Cash Account"
+msgstr "حساب النقدية"
+
+msgid "Driver Clearing Account"
+msgstr "حساب تسوية السائق"
+
+msgid "Cash Difference Account"
+msgstr "حساب فروقات النقدية"
+
+msgid "Settlement Journal"
+msgstr "دفتر يومية التسوية"
+
+msgid "Operations"
+msgstr "العمليات"
+
+msgid "Cash & Settlement"
+msgstr "النقدية والتسوية"
+
+msgid "Reporting"
+msgstr "التقارير"
+
+msgid "Configuration"
+msgstr "الإعدادات"
+
+msgid "Souq Driver"
+msgstr "سائق سوق"
+
+msgid "Souq Cashier"
+msgstr "أمين صندوق سوق"
+
+msgid "Souq Manager"
+msgstr "مدير سوق"
+
+msgid "Souq Accountant"
+msgstr "محاسب سوق"
+
+msgid "Payment Mode"
+msgstr "طريقة الدفع"
+
+msgid "Standard"
+msgstr "قياسي"
+
+msgid "Cash on Delivery"
+msgstr "الدفع عند الاستلام"
+
+msgid "COD Status"
+msgstr "حالة الدفع عند الاستلام"
+
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+msgid "Collected"
+msgstr "تم التحصيل"
+
+msgid "Settled"
+msgstr "تمت التسوية"
+
+msgid "Failed"
+msgstr "فشل"
+
+msgid "COD Collections"
+msgstr "تحصيلات الدفع عند الاستلام"
+
+msgid "Driver"
+msgstr "السائق"
+
+msgid "Expected Amount"
+msgstr "المبلغ المتوقع"
+
+msgid "Collected Amount"
+msgstr "المبلغ المحصل"
+
+msgid "Variance"
+msgstr "الفرق"
+
+msgid "Driver Settlements"
+msgstr "تسويات السائق"
+
+msgid "Total Expected"
+msgstr "إجمالي المتوقع"
+
+msgid "Total Handed In"
+msgstr "إجمالي المسلَّم"
+
+msgid "Journal Entry"
+msgstr "القيد المحاسبي"
+
+msgid "Confirm"
+msgstr "تأكيد"
+
+msgid "Draft"
+msgstr "مسودة"
+
+msgid "Confirmed"
+msgstr "مؤكد"
+
+msgid "Record Cash Collection"
+msgstr "تسجيل تحصيل نقدي"
+
+msgid "Mark Failed"
+msgstr "تحديد كفاشل"
+
+msgid "Record Collection"
+msgstr "تسجيل التحصيل"
+
+msgid "My Deliveries & Collections"
+msgstr "توصيلاتي وتحصيلاتي"
+
+msgid "My Deliveries"
+msgstr "توصيلاتي"
+
+msgid "Driver Cash Floats"
+msgstr "عهدة السائق النقدية"
+
+msgid "Opening Balance"
+msgstr "الرصيد الافتتاحي"
+
+msgid "Closing Balance"
+msgstr "الرصيد الختامي"
+
+msgid "Refuse Delivery / Return on Delivery"
+msgstr "رفض التسليم / إرجاع عند التسليم"
+
+msgid "Refuse Delivery / Return"
+msgstr "رفض التسليم / إرجاع"
+
+msgid "Reason"
+msgstr "السبب"
+
+msgid "Confirm Return"
+msgstr "تأكيد الإرجاع"
+
+msgid "Stock Lines"
+msgstr "بنود المخزون"
+
+msgid "Stock by Branch"
+msgstr "المخزون حسب الفرع"
+
+msgid "Seller VAT Number"
+msgstr "الرقم الضريبي للبائع"
+
+msgid "Buyer VAT Number"
+msgstr "الرقم الضريبي للعميل"
+
+msgid "Tax Breakdown"
+msgstr "تفصيل الضريبة"
+
+msgid "QR Payload (base64 TLV)"
+msgstr "بيانات رمز الاستجابة السريعة"
+
+msgid "QR Code"
+msgstr "رمز الاستجابة السريعة"
+
+msgid "E-Invoice (ZATCA QR)"
+msgstr "الفاتورة الإلكترونية (رمز هيئة الزكاة والضريبة)"
+
+msgid "Souq E-Invoice (AR/EN)"
+msgstr "الفاتورة الإلكترونية لسوق كونكت"
+
+msgid "E-Invoice Reference"
+msgstr "مرجع الفاتورة الإلكترونية"
+
+msgid "COD Surcharge Product"
+msgstr "منتج رسوم الدفع عند الاستلام"
+
+msgid "COD Surcharge Type"
+msgstr "نوع رسوم الدفع عند الاستلام"
+
+msgid "COD Surcharge Value"
+msgstr "قيمة رسوم الدفع عند الاستلام"
+
+msgid "Fixed Amount"
+msgstr "مبلغ ثابت"
+
+msgid "Percentage of Subtotal"
+msgstr "نسبة من الإجمالي الفرعي"
+
+msgid "Is Souq Driver"
+msgstr "سائق سوق"
+
+msgid "Cash in Custody"
+msgstr "النقدية في العهدة"
+
+msgid "Source Branch"
+msgstr "الفرع المصدر"
+
+msgid "Destination Branch"
+msgstr "الفرع الوجهة"
+
+msgid "Inter-Branch Transfers"
+msgstr "التحويلات بين الفروع"
+
+msgid "In Transit"
+msgstr "قيد النقل"
+
+msgid "Outgoing Transfer"
+msgstr "تحويل صادر"
+
+msgid "Incoming Transfer"
+msgstr "تحويل وارد"
+
+msgid "Confirm Receipt"
+msgstr "تأكيد الاستلام"
+
+msgid "Products"
+msgstr "المنتجات"
+
+msgid "Quantity"
+msgstr "الكمية"

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="souq_einvoice_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div t-attf-class="page" dir="rtl" style="direction: rtl; text-align: right;">
+                        <style>
+                            .souq-einvoice-bilingual { display: flex; justify-content: space-between; }
+                            .souq-einvoice-bilingual .en { direction: ltr; text-align: left; }
+                            .souq-einvoice-bilingual .ar { direction: rtl; text-align: right; }
+                            .souq-einvoice-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+                            .souq-einvoice-table th, .souq-einvoice-table td {
+                                border: 1px solid #ccc; padding: 4px 8px;
+                            }
+                        </style>
+
+                        <div class="souq-einvoice-bilingual">
+                            <h2 class="ar">فاتورة ضريبية مبسطة</h2>
+                            <h2 class="en">Simplified Tax Invoice</h2>
+                        </div>
+
+                        <div class="souq-einvoice-bilingual">
+                            <div class="ar">
+                                <p><strong>البائع:</strong> <span t-field="o.company_id.name"/></p>
+                                <p><strong>الرقم الضريبي للبائع:</strong> <span t-field="o.seller_tax_id"/></p>
+                                <p><strong>العميل:</strong> <span t-field="o.partner_id.name"/></p>
+                                <p t-if="o.buyer_tax_id"><strong>الرقم الضريبي للعميل:</strong> <span t-field="o.buyer_tax_id"/></p>
+                                <p><strong>رقم الفاتورة:</strong> <span t-field="o.name"/></p>
+                                <p><strong>تاريخ الفاتورة:</strong> <span t-field="o.invoice_date"/></p>
+                            </div>
+                            <div class="en">
+                                <p><strong>Seller:</strong> <span t-field="o.company_id.name"/></p>
+                                <p><strong>Seller VAT No.:</strong> <span t-field="o.seller_tax_id"/></p>
+                                <p><strong>Customer:</strong> <span t-field="o.partner_id.name"/></p>
+                                <p t-if="o.buyer_tax_id"><strong>Customer VAT No.:</strong> <span t-field="o.buyer_tax_id"/></p>
+                                <p><strong>Invoice No.:</strong> <span t-field="o.name"/></p>
+                                <p><strong>Invoice Date:</strong> <span t-field="o.invoice_date"/></p>
+                            </div>
+                        </div>
+
+                        <table class="souq-einvoice-table">
+                            <thead>
+                                <tr>
+                                    <th>الصنف / Item</th>
+                                    <th>الكمية / Qty</th>
+                                    <th>السعر / Unit Price</th>
+                                    <th>الضريبة / Tax</th>
+                                    <th>الإجمالي / Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.invoice_line_ids" t-as="line">
+                                    <td><span t-field="line.name"/></td>
+                                    <td><span t-field="line.quantity"/></td>
+                                    <td><span t-field="line.price_unit"/></td>
+                                    <td><span t-esc="', '.join(line.tax_ids.mapped('name'))"/></td>
+                                    <td><span t-field="line.price_total"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="souq-einvoice-bilingual" style="margin-top: 16px;">
+                            <div class="ar">
+                                <p><strong>الإجمالي بدون ضريبة:</strong> <span t-field="o.amount_untaxed"/></p>
+                                <p><strong>ضريبة القيمة المضافة:</strong> <span t-field="o.amount_tax"/></p>
+                                <p><strong>الإجمالي شامل الضريبة:</strong> <span t-field="o.amount_total"/></p>
+                            </div>
+                            <div class="en">
+                                <p><strong>Untaxed Total:</strong> <span t-field="o.amount_untaxed"/></p>
+                                <p><strong>VAT Amount:</strong> <span t-field="o.amount_tax"/></p>
+                                <p><strong>Total (incl. VAT):</strong> <span t-field="o.amount_total"/></p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 24px;" t-if="o.qr_image">
+                            <img t-att-src="image_data_uri(o.qr_image)"
+                                 style="width: 140px; height: 140px;"
+                                 alt="ZATCA QR"/>
+                            <p class="souq-einvoice-bilingual">
+                                <span class="ar">امسح الرمز للتحقق من الفاتورة</span>
+                                <span class="en">Scan to verify this invoice</span>
+                            </p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="souq_einvoice_report_action" model="ir.actions.report">
+        <field name="name">Souq E-Invoice (AR/EN)</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">souq.souq_einvoice_document</field>
+        <field name="report_file">souq.souq_einvoice_document</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'E-Invoice - %s' % (object.name or '')</field>
+    </record>
+</odoo>

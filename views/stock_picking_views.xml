@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_souq_delivery" model="ir.ui.view">
+        <field name="name">stock.picking.form.souq.delivery</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="branch_id" readonly="1" invisible="not branch_id"/>
+                <field name="driver_id" invisible="payment_mode != 'cod'"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_refuse_delivery" type="object"
+                        string="Refuse Delivery / Return"
+                        invisible="state != 'done' or payment_mode != 'cod' or is_returned_on_delivery"
+                        groups="souq.group_souq_driver,souq.group_souq_manager,souq.group_souq_cashier"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_list_souq_delivery" model="ir.ui.view">
+        <field name="name">stock.picking.list.souq.delivery</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="branch_id" optional="show"/>
+                <field name="driver_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_souq_my_deliveries" model="ir.actions.act_window">
+        <field name="name">My Deliveries</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('driver_id', '=', uid)]</field>
+        <field name="context">{'search_default_available': 1}</field>
+    </record>
+</odoo>

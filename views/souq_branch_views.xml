@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_souq_branch_list" model="ir.ui.view">
+        <field name="name">souq.branch.list</field>
+        <field name="model">souq.branch</field>
+        <field name="arch" type="xml">
+            <list string="Branches">
+                <field name="name"/>
+                <field name="warehouse_id"/>
+                <field name="cash_account_id"/>
+                <field name="clearing_account_id"/>
+                <field name="journal_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_souq_branch_form" model="ir.ui.view">
+        <field name="name">souq.branch.form</field>
+        <field name="model">souq.branch</field>
+        <field name="arch" type="xml">
+            <form string="Branch">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_branch_stock" icon="fa-cubes">
+                            <field name="quant_count" widget="statinfo" string="Stock Lines"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Riyadh Central"/></h1>
+                    </div>
+                    <group>
+                        <group string="Operations">
+                            <field name="warehouse_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Accounting">
+                            <field name="cash_account_id"/>
+                            <field name="clearing_account_id"/>
+                            <field name="cash_diff_account_id"/>
+                            <field name="journal_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_souq_branch_search" model="ir.ui.view">
+        <field name="name">souq.branch.search</field>
+        <field name="model">souq.branch</field>
+        <field name="arch" type="xml">
+            <search string="Branches">
+                <field name="name"/>
+                <field name="warehouse_id"/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_souq_branch" model="ir.actions.act_window">
+        <field name="name">Branches</field>
+        <field name="res_model">souq.branch</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_souq_branch_stock" model="ir.actions.act_window">
+        <field name="name">Stock by Branch</field>
+        <field name="res_model">stock.quant</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[('quantity', '!=', 0)]</field>
+        <field name="context">{'search_default_internal_loc': 1, 'search_default_groupby_warehouse': 1}</field>
+    </record>
+</odoo>

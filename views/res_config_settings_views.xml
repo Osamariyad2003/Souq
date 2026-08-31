@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_souq" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.souq</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Souq Connect" string="Souq Connect" name="souq">
+                    <block title="Cash on Delivery" name="souq_cod_setting_container">
+                        <setting id="souq_cod_surcharge"
+                                 string="COD Surcharge"
+                                 help="Optional fee auto-added to COD sale orders (FR-COD-6). Leave the product empty to disable it.">
+                            <field name="cod_surcharge_product_id"/>
+                            <div class="content-group" invisible="not cod_surcharge_product_id">
+                                <div class="mt8">
+                                    <field name="cod_surcharge_type" widget="radio" class="o_light_label"/>
+                                    <field name="cod_surcharge_value"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_souq_config_settings" model="ir.actions.act_window">
+        <field name="name">Souq Connect Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'souq'}</field>
+    </record>
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_souq_branch_transfer_list" model="ir.ui.view">
+        <field name="name">souq.branch.transfer.list</field>
+        <field name="model">souq.branch.transfer</field>
+        <field name="arch" type="xml">
+            <list string="Inter-Branch Transfers">
+                <field name="name"/>
+                <field name="source_branch_id"/>
+                <field name="dest_branch_id"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state == 'in_transit'"
+                       decoration-warning="state == 'draft'"
+                       decoration-danger="state == 'cancel'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_souq_branch_transfer_form" model="ir.ui.view">
+        <field name="name">souq.branch.transfer.form</field>
+        <field name="model">souq.branch.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Inter-Branch Stock Transfer">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_receive" type="object" string="Confirm Receipt"
+                            class="btn-primary" invisible="state != 'in_transit'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('done', 'cancel')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,in_transit,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="source_branch_id" readonly="state != 'draft'"/>
+                            <field name="dest_branch_id" readonly="state != 'draft'"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="outgoing_picking_id" readonly="1"/>
+                            <field name="incoming_picking_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_souq_branch_transfer" model="ir.actions.act_window">
+        <field name="name">Inter-Branch Transfers</field>
+        <field name="res_model">souq.branch.transfer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

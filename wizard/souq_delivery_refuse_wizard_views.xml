@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_souq_delivery_refuse_wizard_form" model="ir.ui.view">
+        <field name="name">souq.delivery.refuse.wizard.form</field>
+        <field name="model">souq.delivery.refuse.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Refuse Delivery / Return on Delivery">
+                <group>
+                    <field name="picking_id" invisible="1"/>
+                    <field name="reason" placeholder="e.g. customer refused, wrong address..."/>
+                </group>
+                <p class="text-muted">
+                    This reverses the stock back into the branch warehouse,
+                    cancels the COD invoice and marks the order as failed.
+                    No cash is ever expected for this order.
+                </p>
+                <footer>
+                    <button string="Confirm Return" name="action_confirm" type="object"
+                            class="btn-danger"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

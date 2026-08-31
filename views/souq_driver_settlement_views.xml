@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_souq_driver_settlement_list" model="ir.ui.view">
+        <field name="name">souq.driver.settlement.list</field>
+        <field name="model">souq.driver.settlement</field>
+        <field name="arch" type="xml">
+            <list string="Driver Settlements" decoration-danger="variance != 0">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="driver_id"/>
+                <field name="branch_id"/>
+                <field name="total_expected"/>
+                <field name="total_handed_in"/>
+                <field name="variance"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'confirmed'"
+                       decoration-warning="state == 'draft'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_souq_driver_settlement_form" model="ir.ui.view">
+        <field name="name">souq.driver.settlement.form</field>
+        <field name="model">souq.driver.settlement</field>
+        <field name="arch" type="xml">
+            <form string="Driver Settlement">
+                <header>
+                    <button name="action_fetch_collections" type="object"
+                            string="Fetch Collections" invisible="state != 'draft'"/>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="btn-primary" invisible="state != 'draft'"
+                            groups="souq.group_souq_manager,souq.group_souq_accountant"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="driver_id" readonly="state == 'confirmed'"/>
+                            <field name="branch_id" readonly="state == 'confirmed'"/>
+                            <field name="date" readonly="state == 'confirmed'"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="total_expected"/>
+                            <field name="total_handed_in" readonly="state == 'confirmed'"/>
+                            <field name="variance"/>
+                            <field name="move_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Collections">
+                            <p class="text-muted" invisible="not collection_ids or state != 'draft'">
+                                Use "Fetch Collections" to pull in every
+                                collected-but-unsettled COD collection for
+                                this driver and branch.
+                            </p>
+                            <field name="collection_ids" readonly="1">
+                                <list editable="bottom" create="false" delete="false">
+                                    <field name="name"/>
+                                    <field name="order_id"/>
+                                    <field name="invoice_id"/>
+                                    <field name="amount_expected"/>
+                                    <field name="amount_collected"/>
+                                    <field name="variance"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_souq_driver_settlement_search" model="ir.ui.view">
+        <field name="name">souq.driver.settlement.search</field>
+        <field name="model">souq.driver.settlement</field>
+        <field name="arch" type="xml">
+            <search string="Driver Settlements">
+                <field name="name"/>
+                <field name="driver_id"/>
+                <field name="branch_id"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="confirmed" string="Confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_driver" string="Driver" context="{'group_by': 'driver_id'}"/>
+                    <filter name="group_branch" string="Branch" context="{'group_by': 'branch_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_souq_driver_settlement" model="ir.actions.act_window">
+        <field name="name">Driver Settlements</field>
+        <field name="res_model">souq.driver.settlement</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

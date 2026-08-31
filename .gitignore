@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Odoo runtime artifacts
+*.pot
+filestore/
+sessions/
+
+# Local/dev overrides (the shipped docker/odoo.conf template is tracked)
+*.local.conf
+local.conf
+
+# Editor/OS cruft
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
